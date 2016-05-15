@@ -16,7 +16,9 @@ import (
 	// "./spiral"
 	// "./wordlist"
 	// "./eksisozluk"
-	"./logtester"
+	// "./logtester"
+	//"./oauthiotester"
+	//"./twiliotester"
 )
 
 func main() {
@@ -49,7 +51,11 @@ func main() {
 
 	// eksisozluk.DumpEntries("https://eksisozluk.com/entry/%s", []string{"1"})
 
-	logtester.Test()
+	// logtester.Test()
+
+	//oauthiotester.Test()
+
+	//twiliotester.SendSMS()
 
 	fmt.Println("bitti")
 }
