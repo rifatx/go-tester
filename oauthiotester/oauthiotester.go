@@ -2,10 +2,8 @@ package oauthiotester
 
 import (
 	"fmt"
-	// "github.com/gorilla/mux"
-	"net/http"
-
 	"github.com/oauth-io/sdk-go"
+	"net/http"
 )
 
 var PUBLIC_KEY = "1rAx-yg-DxaueF_YccNJIiS7B7Y"

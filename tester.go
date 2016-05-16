@@ -19,6 +19,8 @@ import (
 	// "./logtester"
 	//"./oauthiotester"
 	//"./twiliotester"
+	// "./configtester"
+	"./pbtester"
 )
 
 func main() {
@@ -55,7 +57,11 @@ func main() {
 
 	//oauthiotester.Test()
 
-	//twiliotester.SendSMS()
+	// twiliotester.SendSMS()
+
+	// configtester.Test()
+
+	pbtester.Test()
 
 	fmt.Println("bitti")
 }
