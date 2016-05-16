@@ -1,0 +1,31 @@
+---
+default: &default
+  host: localhost
+  env: {{.GOENV}}
+  db:  "host=/var/run/postgresql dbname=awesome_{{.GOENV}} sslmode=disable"
+  cache: {{.HOME}}/cache
+  websrvr:
+    api_url: https://sandbox.websrvr.in/1/
+    creds:
+      username: foobar
+      password: awesome
+  items:
+    - val: 1
+    - val: 2
+    - val: 3
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+production:
+  <<: *default
+  host: minhajuddin.com/
+  websrvr:
+    api_url: https://api.websrvr.in/1/
+    creds:
+      username: {{.DROPBOX_USER}}
+      password: {{.DROPBOX_PASSWORD}}
+...
