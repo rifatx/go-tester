@@ -2,7 +2,7 @@ package validationtester
 
 import (
 	"fmt"
-	"github.com/go-validator/validator"
+	"gopkg.in/validator.v2"
 )
 
 func Test() {
