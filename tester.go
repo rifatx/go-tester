@@ -20,7 +20,8 @@ import (
 	//"github.com/rifatx/go-tester/oauthiotester"
 	//"github.com/rifatx/go-tester/twiliotester"
 	//"github.com/rifatx/go-tester/configtester"
-	"github.com/rifatx/go-tester/pbtester"
+	//"github.com/rifatx/go-tester/pbtester"
+	"github.com/rifatx/go-tester/validationtester"
 )
 
 func main() {
@@ -61,7 +62,9 @@ func main() {
 
 	// configtester.Test()
 
-	pbtester.Test()
+	// pbtester.Test()
+
+	validationtester.Test()
 
 	fmt.Println("bitti")
 }
