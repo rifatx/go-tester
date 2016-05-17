@@ -8,16 +8,27 @@ import (
 )
 
 func Test() {
-	fname := "d:\\Documents\\Codes\\go\\tester\\pbtester\\osman.dat"
+	fname := ".\\pbtester\\osman.dat"
 
 	book := &AddressBook{}
 
+	// proto2
+	// p := &Person{
+	// 	Id:    proto.Int32(1234),
+	// 	Name:  proto.String("John Doe"),
+	// 	Email: proto.String("jdoe@example.com"),
+	// 	Phones: []*Person_PhoneNumber{
+	// 		{Number: proto.String("555-4321"), Type: &[]Person_PhoneType{Person_HOME}[0]},
+	// 	},
+	// }
+
+	// proto3
 	p := &Person{
-		Id:    proto.Int32(1234),
-		Name:  proto.String("John Doe"),
-		Email: proto.String("jdoe@example.com"),
+		Id:    1234,
+		Name:  "John Doe",
+		Email: "jdoe@example.com",
 		Phones: []*Person_PhoneNumber{
-			{Number: proto.String("555-4321"), Type: &[]Person_PhoneType{Person_HOME}[0]},
+			{Number: "555-4321", Type: Person_HOME},
 		},
 	}
 
