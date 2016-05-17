@@ -2,26 +2,27 @@ package main
 
 import (
 	"fmt"
-	//"github.com/rifatx/go-tester/fib"
-	//"github.com/rifatx/go-tester/pic"
-	//"github.com/rifatx/go-tester/concurrent"
-	//"github.com/rifatx/go-tester/webrequest"
-	//"github.com/rifatx/go-tester/filewatcher"
-	//"github.com/rifatx/go-tester/channel"
-	//"github.com/rifatx/go-tester/jsontester"
-	//"github.com/rifatx/go-tester/regextester"
-	//"github.com/rifatx/go-tester/webservice"
-	//"github.com/rifatx/go-tester/sorttester"
-	//"github.com/rifatx/go-tester/sqltester"
-	//"github.com/rifatx/go-tester/spiral"
-	//"github.com/rifatx/go-tester/wordlist"
-	//"github.com/rifatx/go-tester/eksisozluk"
-	//"github.com/rifatx/go-tester/logtester"
-	//"github.com/rifatx/go-tester/oauthiotester"
-	//"github.com/rifatx/go-tester/twiliotester"
-	//"github.com/rifatx/go-tester/configtester"
-	//"github.com/rifatx/go-tester/pbtester"
-	"github.com/rifatx/go-tester/validationtester"
+	// "github.com/rifatx/go-tester/fib"
+	// "github.com/rifatx/go-tester/pic"
+	// "github.com/rifatx/go-tester/concurrent"
+	// "github.com/rifatx/go-tester/webrequest"
+	// "github.com/rifatx/go-tester/filewatcher"
+	// "github.com/rifatx/go-tester/channel"
+	// "github.com/rifatx/go-tester/jsontester"
+	// "github.com/rifatx/go-tester/regextester"
+	// "github.com/rifatx/go-tester/webservice"
+	// "github.com/rifatx/go-tester/sorttester"
+	// "github.com/rifatx/go-tester/sqltester"
+	// "github.com/rifatx/go-tester/spiral"
+	// "github.com/rifatx/go-tester/wordlist"
+	// "github.com/rifatx/go-tester/eksisozluk"
+	// "github.com/rifatx/go-tester/logtester"
+	// "github.com/rifatx/go-tester/oauthiotester"
+	// "github.com/rifatx/go-tester/twiliotester"
+	// "github.com/rifatx/go-tester/configtester"
+	// "github.com/rifatx/go-tester/pbtester"
+	// "github.com/rifatx/go-tester/validationtester"
+	"github.com/rifatx/go-tester/oauth2server"
 )
 
 func main() {
@@ -64,7 +65,9 @@ func main() {
 
 	// pbtester.Test()
 
-	validationtester.Test()
+	// validationtester.Test()
+
+	oauth2server.Start()
 
 	fmt.Println("bitti")
 }
