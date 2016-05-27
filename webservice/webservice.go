@@ -4,14 +4,20 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"time"
+)
+
+const (
+	TIME_FORMAT = "20060102T150405Z0700"
 )
 
 type ResponseLogger struct {
 	http.ResponseWriter
+	f func(b []byte)
 }
 
 func (w ResponseLogger) Write(b []byte) (int, error) {
-	fmt.Println(string(b))
+	w.f(b)
 	return w.ResponseWriter.Write(b)
 }
 
@@ -46,10 +52,18 @@ func Start() {
 		},
 	)
 
+	innerLogFunc := func(b []byte) {
+		fmt.Fprintln("[%s] %s", time.Now().Format(TIME_FORMAT), string(b))
+	}
+
+	logFunc := func(b []byte) {
+		go innerLogFunc(b)
+	}
+
 	log := func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			fmt.Printf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)
-			handler.ServeHTTP(ResponseLogger{w}, r)
+			logFunc([]byte(fmt.Sprintf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)))
+			handler.ServeHTTP(ResponseLogger{ResponseWriter: w, f: logFunc}, r)
 		})
 	}
 

@@ -2,27 +2,31 @@ package main
 
 import (
 	"fmt"
-	// "github.com/rifatx/go-tester/fib"
-	// "github.com/rifatx/go-tester/pic"
-	// "github.com/rifatx/go-tester/concurrent"
-	// "github.com/rifatx/go-tester/webrequest"
-	// "github.com/rifatx/go-tester/filewatcher"
-	// "github.com/rifatx/go-tester/channel"
-	// "github.com/rifatx/go-tester/jsontester"
-	// "github.com/rifatx/go-tester/regextester"
-	// "github.com/rifatx/go-tester/webservice"
-	// "github.com/rifatx/go-tester/sorttester"
-	// "github.com/rifatx/go-tester/sqltester"
-	// "github.com/rifatx/go-tester/spiral"
-	// "github.com/rifatx/go-tester/wordlist"
-	// "github.com/rifatx/go-tester/eksisozluk"
-	// "github.com/rifatx/go-tester/logtester"
-	// "github.com/rifatx/go-tester/oauthiotester"
-	// "github.com/rifatx/go-tester/twiliotester"
-	// "github.com/rifatx/go-tester/configtester"
-	// "github.com/rifatx/go-tester/pbtester"
-	// "github.com/rifatx/go-tester/validationtester"
-	"github.com/rifatx/go-tester/oauth2server"
+
+	"github.com/rifatx/go-tester/timetester"
+	//	"github.com/rifatx/go-tester/channel"
+	//	"github.com/rifatx/go-tester/concurrent"
+	//	"github.com/rifatx/go-tester/configtester"
+	//	"github.com/rifatx/go-tester/dbloggertester"
+	//	"github.com/rifatx/go-tester/eksisozluk"
+	//	"github.com/rifatx/go-tester/fib"
+	//	"github.com/rifatx/go-tester/filewatcher"
+	//	"github.com/rifatx/go-tester/jsontester"
+	//	"github.com/rifatx/go-tester/logtester"
+	//	"github.com/rifatx/go-tester/oauthiotester"
+	//	"github.com/rifatx/go-tester/pbtester"
+	//	"github.com/rifatx/go-tester/pic"
+	//	"github.com/rifatx/go-tester/regextester"
+	//	"github.com/rifatx/go-tester/sorttester"
+	//	"github.com/rifatx/go-tester/spiral"
+	//	"github.com/rifatx/go-tester/sqltester"
+	//	"github.com/rifatx/go-tester/twiliotester"
+	//	"github.com/rifatx/go-tester/validationtester"
+	//	"github.com/rifatx/go-tester/webrequest"
+	//	"github.com/rifatx/go-tester/webservice"
+	//	"github.com/rifatx/go-tester/wordlist"
+	//	"github.com/rifatx/go-tester/oauth2server"
+	//	"github.com/rifatx/go-tester/mailtester"
 )
 
 func main() {
@@ -43,7 +47,7 @@ func main() {
 
 	// regextester.Test()
 
-	// webservice.Start()
+	//	webservice.Start()
 
 	// sorttester.TestMergeSort()
 
@@ -57,7 +61,7 @@ func main() {
 
 	// logtester.Test()
 
-	//oauthiotester.Test()
+	// oauthiotester.Test()
 
 	// twiliotester.SendSMS()
 
@@ -67,7 +71,13 @@ func main() {
 
 	// validationtester.Test()
 
-	oauth2server.Start()
+	// oauth2server.Start()
+
+	// mailtester.Test()
+
+	//	dbloggertester.Test()
+
+	timetester.Test()
 
 	fmt.Println("bitti")
 }
