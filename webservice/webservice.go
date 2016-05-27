@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"sync/atomic"
 	"time"
 )
 
 const (
-	TIME_FORMAT = "20060102T150405Z0700"
+	TIME_FORMAT = "20060102T150405.999Z0700"
 )
 
 type ResponseLogger struct {
@@ -52,12 +53,15 @@ func Start() {
 		},
 	)
 
-	innerLogFunc := func(b []byte) {
-		fmt.Fprintln("[%s] %s", time.Now().Format(TIME_FORMAT), string(b))
+	innerLogFunc := func(n uint64, b []byte) {
+		fmt.Printf("[%d - %s] %s\n", n, time.Now().Format(TIME_FORMAT), string(b))
 	}
 
+	var n uint64 = 0
+
 	logFunc := func(b []byte) {
-		go innerLogFunc(b)
+		atomic.AddUint64(&n, 1)
+		go innerLogFunc(n, b)
 	}
 
 	log := func(handler http.Handler) http.Handler {
