@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <script src="centrifuge.js"></script>
+    <script src="sha256.js"></script>
+</head>
+
+<body>
+    <script type="text/javascript">
+    //get this from server
+    var secret = "secret";
+    var user = "1003";
+    var info = "";
+    //get this from server
+    var channel = "hede#1001,1002,1003";
+    var timestamp = parseInt(new Date().getTime() / 1000).toString();
+
+    var hmacBody = user + timestamp;
+    var shaObj = new jsSHA("SHA-256", "TEXT");
+    shaObj.setHMACKey(secret, "TEXT");
+    shaObj.update(hmacBody);
+    var token = shaObj.getHMAC("HEX");
+
+    var centrifuge = new Centrifuge({
+        url: 'http://localhost:8000/connection/websocket',
+        user: "1003",
+        timestamp: timestamp,
+        token: token
+    });
+
+    var callbacks = {
+        "message": function(message) {
+            var div = document.getElementById("messages");
+            div.innerHTML = div.innerHTML + message.data.text + "<br/>";
+            //            alert(message.data.text);
+        },
+        "join": function(message) {},
+        "leave": function(message) {},
+        "subscribe": function(context) {},
+        "error": function(errContext) {},
+        "unsubscribe": function(context) {}
+    }
+
+    centrifuge.subscribe(channel, callbacks);
+    centrifuge.connect();
+    </script>
+    <div id="messages"></div>
+</body>
+
+</html>
