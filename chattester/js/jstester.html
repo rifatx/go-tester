@@ -10,15 +10,24 @@
 
 <body>
     <script type="text/javascript">
-    //get this from server
+    String.prototype.format = function() {
+        var formatted = this;
+        for (var i = 0; i < arguments.length; i++) {
+            var regexp = new RegExp('\\{' + i + '\\}', 'gi');
+            formatted = formatted.replace(regexp, arguments[i]);
+        }
+        return formatted;
+    };
+
+    //get these from server
     var secret = "secret";
-    var user = "1003";
-    var info = "";
-    //get this from server
     var channel = "hede#1001,1002,1003";
+    //this comes from session
+    var userId = "1003";
+    var info = "";
     var timestamp = parseInt(new Date().getTime() / 1000).toString();
 
-    var hmacBody = user + timestamp;
+    var hmacBody = userId + timestamp;
     var shaObj = new jsSHA("SHA-256", "TEXT");
     shaObj.setHMACKey(secret, "TEXT");
     shaObj.update(hmacBody);
@@ -26,18 +35,15 @@
 
     var centrifuge = new Centrifuge({
         url: 'http://localhost:8000/connection/websocket',
-        user: "1003",
+        user: userId,
         timestamp: timestamp,
         token: token
     });
 
     var callbacks = {
         "message": function(message) {
-            if (message.data.userId == user) {
-                return;
-            }
-
-            $("<p>" + message.data.text + "</p>").appendTo("#messages")
+            var p = "<p {0}>{1}".format(message.data.userId === userId ? "align='right' style='margin-right: 10px;'" : "style='margin-left: 10px;", message.data.userId !== userId ? "{0}: ".format(message.data.userId) : "");
+            $(p + message.data.text + "</p>").appendTo("#messages");
 
             var d = $('#messages');
             d.scrollTop(d.prop("scrollHeight"));
@@ -45,7 +51,9 @@
         "join": function(message) {},
         "leave": function(message) {},
         "subscribe": function(context) {},
-        "error": function(errContext) {},
+        "error": function(errContext) {
+            alert(errContext);
+        },
         "unsubscribe": function(context) {}
     }
 
@@ -55,8 +63,18 @@
     $(function() {
         $("#btnSend").click(function() {
             var channel = "hede#1001,1002,1003";
-            var url = "http://localhost:1234/broadcastToChatRoom?userId=" + 1003 + "&channel=" + encodeURIComponent(channel) + "&msg=" + $("#txtMsg").val()
-            $.get(url, function(data) {});
+            // parameters should be POST, not GET
+            var url = "http://localhost:1234/broadcastToChatRoom?userId={0}&channel={1}&msg={2}".format(userId, encodeURIComponent(channel), $("#txtMsg").val());
+            $.ajax({
+                type: "GET",
+                url: url,
+                error: function(request, error) {
+                    alert(error)
+                },
+                success: function(data) {}
+            });
+
+            $("#txtMsg").val("");
         });
     });
     </script>

@@ -91,7 +91,7 @@ func listenChatRoom(userId string, channel string, secret string) {
 func broadcastToChatRoom(userId string, channel string) {
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
-		//url to chat service
+		//url to chat service, parameters should be POST, not GET
 		_, err := http.Get(fmt.Sprintf("http://localhost:1234/broadcastToChatRoom?userId=%s&channel=%s&msg=%s", userId, url.QueryEscape(channel), scanner.Text()))
 		if err != nil {
 			fmt.Printf("msg: %s, error: %s\n", scanner.Text(), err.Error())
@@ -102,6 +102,8 @@ func broadcastToChatRoom(userId string, channel string) {
 
 func mockChatServer() {
 	http.HandleFunc("/broadcastToChatRoom", func(rw http.ResponseWriter, r *http.Request) {
+		// check user status, auth etc. for the chat room here
+		// parameters should be POST, not GET
 		userId := r.URL.Query().Get("userId")
 		channel := r.URL.Query().Get("channel")
 		m := r.URL.Query().Get("msg")
@@ -109,7 +111,8 @@ func mockChatServer() {
 		//get this from backend
 		secret := "secret"
 		if userId == "" || channel == "" || secret == "" || m == "" {
-			fmt.Printf("something is null: '%s' '%s' '%s' '%s'\n", userId, channel, secret, m)
+			rw.Write([]byte(fmt.Sprintf("something is null: '%s' '%s' '%s' '%s'\n", userId, channel, secret, m)))
+			rw.Header(http.StatusInternalServerError)
 			return
 		}
 
@@ -120,10 +123,19 @@ func mockChatServer() {
 			Text:      m,
 		}
 		j, _ := json.Marshal(msg)
-		_, err := c.Publish(channel, j)
+		// insert log for message, status: pending
+		ok, err := c.Publish(channel, j)
 		if err != nil {
 			fmt.Printf("error sending, msg: %v, err: %s\n", msg, err)
+			rw.Write([]byte("Error while sending"))
+			rw.Header(http.StatusInternalServerError)
+			return
 		}
+		if ok {
+			// update message log, status: ok
+		}
+		rw.Header().Add("Access-Control-Allow-Origin", "*")
+		rw.WriteHeader(http.StatusOK)
 	})
 
 	http.ListenAndServe(":1234", http.DefaultServeMux)
