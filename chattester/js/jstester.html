@@ -5,6 +5,7 @@
     <title></title>
     <script src="centrifuge.js"></script>
     <script src="sha256.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -32,9 +33,14 @@
 
     var callbacks = {
         "message": function(message) {
-            var div = document.getElementById("messages");
-            div.innerHTML = div.innerHTML + message.data.text + "<br/>";
-            //            alert(message.data.text);
+            if (message.data.userId == user) {
+                return;
+            }
+
+            $("<p>" + message.data.text + "</p>").appendTo("#messages")
+
+            var d = $('#messages');
+            d.scrollTop(d.prop("scrollHeight"));
         },
         "join": function(message) {},
         "leave": function(message) {},
@@ -45,8 +51,20 @@
 
     centrifuge.subscribe(channel, callbacks);
     centrifuge.connect();
+
+    $(function() {
+        $("#btnSend").click(function() {
+            var channel = "hede#1001,1002,1003";
+            var url = "http://localhost:1234/broadcastToChatRoom?userId=" + 1003 + "&channel=" + encodeURIComponent(channel) + "&msg=" + $("#txtMsg").val()
+            $.get(url, function(data) {});
+        });
+    });
     </script>
-    <div id="messages"></div>
+    <div id="messages" style="line-height:0.1;height:500px;width:300px;border:1px solid black;overflow-y: scroll;"></div>
+    <div>
+        <input type="text" id="txtMsg">
+        <input type="button" id="btnSend" value="Send">
+    </div>
 </body>
 
 </html>
