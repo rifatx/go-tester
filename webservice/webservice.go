@@ -68,6 +68,8 @@ func Start() {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			logFunc([]byte(fmt.Sprintf("%s %s %s\n", r.RemoteAddr, r.Method, r.URL)))
 			handler.ServeHTTP(ResponseLogger{ResponseWriter: w, f: logFunc}, r)
+
+			fmt.Println("url: " + r.URL.EscapedPath())
 		})
 	}
 

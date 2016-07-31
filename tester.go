@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/rifatx/go-tester/timetester"
+	//	"github.com/rifatx/go-tester/timetester"
 	//	"github.com/rifatx/go-tester/channel"
 	//	"github.com/rifatx/go-tester/concurrent"
 	//	"github.com/rifatx/go-tester/configtester"
@@ -23,7 +23,7 @@ import (
 	//	"github.com/rifatx/go-tester/twiliotester"
 	//	"github.com/rifatx/go-tester/validationtester"
 	//	"github.com/rifatx/go-tester/webrequest"
-	//	"github.com/rifatx/go-tester/webservice"
+	"github.com/rifatx/go-tester/webservice"
 	//	"github.com/rifatx/go-tester/wordlist"
 	//	"github.com/rifatx/go-tester/oauth2server"
 	//	"github.com/rifatx/go-tester/mailtester"
@@ -47,7 +47,7 @@ func main() {
 
 	// regextester.Test()
 
-	//	webservice.Start()
+	webservice.Start()
 
 	// sorttester.TestMergeSort()
 
@@ -77,7 +77,7 @@ func main() {
 
 	//	dbloggertester.Test()
 
-	timetester.Test()
+	//	timetester.Test()
 
 	fmt.Println("bitti")
 }
